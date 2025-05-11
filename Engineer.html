@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineer Overclocks - Deep Rock Galactic</title>
+    <style>
+        :root {
+            --drg-yellow: #FFD700;
+            --drg-dark: #2A2A2A;
+            --drg-gray: #3D3D3D;
+            --drg-light: #F5F5F5;
+            --engineer-color: #cc0000;
+            --gunner-color: #008800;
+            --driller-color: #884400;
+            --scout-color: #00008B;
+            --clean-oc: #00cc00;
+            --balanced-oc: #ffaa00;
+            --unstable-oc: #cc0000;
+        }
+        
+        body {
+            font-family: "Tahoma", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--drg-dark);
+            color: var(--drg-light);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--drg-gray);
+            border: 2px solid var(--engineer-color);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            padding: 20px 0;
+            border-bottom: 3px solid var(--engineer-color);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: var(--engineer-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--drg-yellow);
+            margin-top: 5px;
+        }
+        
+        nav {
+            margin: 20px 0 30px 0;
+            background-color: var(--drg-dark);
+            border-radius: 6px;
+            padding: 10px;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        nav li {
+            margin: 5px;
+        }
+        
+        nav a {
+            display: block;
+            padding: 8px 16px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-width: 100px;
+            border: 2px solid transparent;
+        }
+        
+        nav li:nth-child(1) a {
+            background-color: var(--drg-yellow);
+            color: var(--drg-dark);
+        }
+        
+        nav li:nth-child(2) a {
+            background-color: var(--engineer-color);
+            color: white;
+            border: 2px solid var(--drg-yellow);
+            transform: scale(1.05);
+        }
+        
+        nav li:nth-child(3) a {
+            background-color: var(--gunner-color);
+            color: white;
+        }
+        
+        nav li:nth-child(4) a {
+            background-color: var(--driller-color);
+            color: white;
+        }
+        
+        nav li:nth-child(5) a {
+            background-color: var(--scout-color);
+            color: white;
+        }
+        
+        nav a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--drg-yellow);
+        }
+        
+        main {
+            margin-bottom: 30px;
+        }
+        
+        .progress-section {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar-container {
+            width: 100%;
+            height: 30px;
+            background-color: var(--drg-dark);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 10px 0;
+            position: relative;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: var(--engineer-color);
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+        }
+        
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+        
+        .weapon-section {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: var(--engineer-color);
+            border-bottom: 2px solid var(--engineer-color);
+            padding-bottom: 10px;
+            font-size: 1.8rem;
+        }
+        
+        h3 {
+            color: var(--drg-yellow);
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .overclock-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .overclock-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            padding: 12px;
+            border-left: 5px solid #666;
+            transition: all 0.3s ease;
+        }
+        
+        .overclock-item.clean {
+            border-left-color: var(--clean-oc);
+        }
+        
+        .overclock-item.balanced {
+            border-left-color: var(--balanced-oc);
+        }
+        
+        .overclock-item.unstable {
+            border-left-color: var(--unstable-oc);
+        }
+        
+        .overclock-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .overclock-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .overclock-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .overclock-type {
+            font-size: 0.85rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            background-color: #666;
+            color: white;
+        }
+        
+        .overclock-type.clean {
+            background-color: var(--clean-oc);
+        }
+        
+        .overclock-type.balanced {
+            background-color: var(--balanced-oc);
+        }
+        
+        .overclock-type.unstable {
+            background-color: var(--unstable-oc);
+        }
+        
+        .overclock-desc {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: #ccc;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox-container input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        
+        .checkbox-label {
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        button {
+            background-color: var(--drg-dark);
+            color: var(--drg-light);
+            border: 2px solid var(--engineer-color);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: var(--engineer-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .save-button {
+            background-color: var(--engineer-color);
+        }
+        
+        footer {
+            border-top: 2px solid var(--engineer-color);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        footer h3 {
+            color: var(--drg-yellow);
+            margin-bottom: 10px;
+        }
+        
+        footer p {
+            margin: 5px 0;
+        }
+        
+        footer a {
+            color: var(--drg-yellow);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        
+        footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .engineer-image {
+            max-width: 150px;
+            border-radius: 50%;
+            border: 3px solid var(--engineer-color);
+            margin-bottom: 15px;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .overclock-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav a {
+                width: 80%;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved checkboxes from localStorage
+            loadCheckboxes();
+            
+            // Add event listeners to all checkboxes
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateProgress);
+            });
+            
+            // Add button event listeners
+            document.getElementById('save-button').addEventListener('click', saveCheckboxes);
+            document.getElementById('reset-button').addEventListener('click', resetCheckboxes);
+            
+            // Initial progress calculation
+            updateProgress();
+        });
+        
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const total = checkboxes.length;
+            let checked = 0;
+            
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    checked++;
+                }
+            });
+            
+            const percentage = total > 0 ? Math.round((checked / total) * 100) : 0;
+            
+            // Update progress bar
+            const progressBar = document.querySelector('.progress-bar');
+            progressBar.style.width = percentage + '%';
+            
+            // Update progress text
+            const progressText = document.querySelector('.progress-text');
+            progressText.textContent = `${checked}/${total} Overclocks (${percentage}%)`;
+            
+            // Update weapon-specific progress
+            const weapons = ['warthog', 'stubby', 'lok1', 'pgl', 'breach'];
+            
+            weapons.forEach(weapon => {
+                const weaponCheckboxes = document.querySelectorAll(`.${weapon}-oc input[type="checkbox"]`);
+                const weaponTotal = weaponCheckboxes.length;
+                let weaponChecked = 0;
+                
+                weaponCheckboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        weaponChecked++;
+                    }
+                });
+                
+                const weaponPercentage = weaponTotal > 0 ? Math.round((weaponChecked / weaponTotal) * 100) : 0;
+                
+                // Update weapon progress text
+                const weaponProgressText = document.querySelector(`.${weapon}-progress`);
+                if (weaponProgressText) {
+                    weaponProgressText.textContent = `${weaponChecked}/${weaponTotal} (${weaponPercentage}%)`;
+                }
+            });
+        }
+        
+        function saveCheckboxes() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const checkboxStates = {};
+            
+            checkboxes.forEach(checkbox => {
+                checkboxStates[checkbox.id] = checkbox.checked;
+            });
+            
+            localStorage.setItem('engineerOverclocks', JSON.stringify(checkboxStates));
+            alert('Progress saved successfully!');
+        }
+        
+        function loadCheckboxes() {
+            const savedData = localStorage.getItem('engineerOverclocks');
+            
+            if (savedData) {
+                const checkboxStates = JSON.parse(savedData);
+                
+                Object.keys(checkboxStates).forEach(id => {
+                    const checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.checked = checkboxStates[id];
+                    }
+                });
+            }
+        }
+        
+        function resetCheckboxes() {
+            if (confirm('Are you sure you want to reset all progress?')) {
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                
+                localStorage.removeItem('engineerOverclocks');
+                updateProgress();
+                alert('Progress has been reset.');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="/api/placeholder/150/150" alt="Engineer" class="engineer-image">
+            <h1>Engineer</h1>
+            <div class="subtitle">Overclock Checklist</div>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="Home.html">Home</a></li>
+                <li><a href="Engineer.html">Engineer</a></li>
+                <li><a href="Gunner.html">Gunner</a></li>
+                <li><a href="Driller.html">Driller</a></li>
+                <li><a href="Scout.html">Scout</a></li>
+            </ul>
+        </nav>
+        
+        <main>
+            <section class="progress-section">
+                <h2>Overall Progress</h2>
+                <div class="progress-bar-container">
+                    <div class="progress-bar"></div>
+                    <div class="progress-text">0/0 Overclocks (0%)</div>
+                </div>
+                <div class="buttons-container">
+                    <button id="reset-button">Reset Progress</button>
+                    <button id="save-button" class="save-button">Save Progress</button>
+                </div>
+            </section>
+            
+            <!-- "Warthog" Auto 210 Shotgun -->
+            <section class="weapon-section">
+                <h2>"Warthog" Auto 210 Shotgun</h2>
+                <div class="weapon-progress warthog-progress">0/7 (0%)</div>
+                
+                <div class="overclock-container warthog-oc">
+                    <div class="overclock-item clean">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Stunner</span>
+                            <span class="overclock-type clean">Clean</span>
+                        </div>
+                        <div class="overclock-desc">+30% Stun Chance. +1 Stun Duration.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="warthog-1">
+                            <label for="warthog-1" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item clean">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Light-Weight Magazines</span>
+                            <span class="overclock-type clean">Clean</span>
+                        </div>
+                        <div class="overclock-desc">+4 Magazine Size. +20% Reload Speed.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="warthog-2">
+                            <label for="warthog-2" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item balanced">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Magnetic Pellet Alignment</span>
+                            <span class="overclock-type balanced">Balanced</span>
+                        </div>
+                        <div class="overclock-desc">x0.3 Spread. -1 Damage.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="warthog-3">
+                            <label for="warthog-3" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item balanced">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Cycle Overload</span>
+                            <span class="overclock-type balanced">Balanced</span>
+                        </div>
+                        <div class="overclock-desc">+2 Damage. +25% Rate of Fire. x1.5 Spread. +0.5 Reload Time.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="warthog-4">
+                            <label for="warthog-4" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item unstable">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Mini Shells</span>
+                            <span class="overclock-type unstable">Unstable</span>
+                        </div>
+                        <div class="overclock-desc">+10 Magazine Size. +100 Max Ammo. -3 Damage. x0.5 Recoil.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="warthog-5">
+                            <label for="warthog-5" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item balanced">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Turret Whip</span>
+                            <span class="overclock-type balanced">Balanced</span>
+                        </div>
+                        <div class="overclock-desc">Special: Shoot your turret to make it fire a powerful charged shot.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="warthog-6">
+                            <label for="warthog-6" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item unstable">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Turret EM Discharge</span>
+                            <span class="overclock-type unstable">Unstable</span>
+                        </div>
+                        <div class="overclock-desc">Special: Shoot your turret to create an electrical discharge. -30 Max Ammo.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="warthog-7">
+                            <label for="warthog-7" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- "Stubby" Voltaic SMG -->
+            <section class="weapon-section">
+                <h2>"Stubby" Voltaic SMG</h2>
+                <div class="weapon-progress stubby-progress">0/7 (0%)</div>
+                
+                <div class="overclock-container stubby-oc">
+                    <div class="overclock-item clean">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Super-Slim Rounds</span>
+                            <span class="overclock-type clean">Clean</span>
+                        </div>
+                        <div class="overclock-desc">+2 Magazine Size. +20 Max Ammo.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="stubby-1">
+                            <label for="stubby-1" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item balanced">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Well Oiled Machine</span>
+                            <span class="overclock-type balanced">Balanced</span>
+                        </div>
+                        <div class="overclock-desc">+2 Rate of Fire. +0.2s Recoil Recovery. -1 Magazine Size.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="stubby-2">
+                            <label for="stubby-2" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item balanced">
+                        <div class="overclock-header">
+                            <span class="overclock-name">EM Refire Booster</span>
+                            <span class="overclock-type balanced">Balanced</span>
+                        </div>
+                        <div class="overclock-desc">+4 Rate of Fire. -10% Electrocution Chance.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="stubby-3">
+                            <label for="stubby-3" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item balanced">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Light-Weight Rounds</span>
+                            <span class="overclock-type balanced">Balanced</span>
+                        </div>
+                        <div class="overclock-desc">+50 Max Ammo. -1 Direct Damage.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="stubby-4">
+                            <label for="stubby-4" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item unstable">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Turret Arc</span>
+                            <span class="overclock-type unstable">Unstable</span>
+                        </div>
+                        <div class="overclock-desc">Special: Chance to create lightning arcs between turrets. +20% Electrocution Chance. -2 Direct Damage.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="stubby-5">
+                            <label for="stubby-5" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item clean">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Turret EM Discharge</span>
+                            <span class="overclock-type clean">Clean</span>
+                        </div>
+                        <div class="overclock-desc">+10% Electrocution Chance. Your turrets gain the EM Discharge ability.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="stubby-6">
+                            <label for="stubby-6" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item unstable">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Turret Whip</span>
+                            <span class="overclock-type unstable">Unstable</span>
+                        </div>
+                        <div class="overclock-desc">Special: Shooting your turret makes it fire a special electrified projectile. -20 Max Ammo.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="stubby-7">
+                            <label for="stubby-7" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- LOK-1 Smart Rifle -->
+            <section class="weapon-section">
+                <h2>LOK-1 Smart Rifle</h2>
+                <div class="weapon-progress lok1-progress">0/5 (0%)</div>
+                
+                <div class="overclock-container lok1-oc">
+                    <div class="overclock-item clean">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Armor Break Module</span>
+                            <span class="overclock-type clean">Clean</span>
+                        </div>
+                        <div class="overclock-desc">+400% Armor Breaking. Special weakpoint bonus on armored enemies.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="lok1-1">
+                            <label for="lok1-1" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item balanced">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Eraser</span>
+                            <span class="overclock-type balanced">Balanced</span>
+                        </div>
+                        <div class="overclock-desc">+2 Direct Damage. -4 Lock-On Max Targets.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="lok1-2">
+                            <label for="lok1-2" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item balanced">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Seeker Rounds</span>
+                            <span class="overclock-type balanced">Balanced</span>
+                        </div>
+                        <div class="overclock-desc">Bullets seek weakpoints. +10% Weakpoint Bonus. -1 Rate of Fire.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="lok1-3">
+                            <label for="lok1-3" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item unstable">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Explosive Chemical Rounds</span>
+                            <span class="overclock-type unstable">Unstable</span>
+                        </div>
+                        <div class="overclock-desc">Bullets explode dealing fire damage in a small radius. -2 Direct Damage.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="lok1-4">
+                            <label for="lok1-4" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item unstable">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Executioner</span>
+                            <span class="overclock-type unstable">Unstable</span>
+                        </div>
+                        <div class="overclock-desc">+100% Weakpoint Bonus. -30% Base Spread Recovery Speed.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="lok1-5">
+                            <label for="lok1-5" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Deepcore 40mm PGL -->
+            <section class="weapon-section">
+                <h2>Deepcore 40mm PGL</h2>
+                <div class="weapon-progress pgl-progress">0/6 (0%)</div>
+                
+                <div class="overclock-container pgl-oc">
+                    <div class="overclock-item clean">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Clean Sweep</span>
+                            <span class="overclock-type clean">Clean</span>
+                        </div>
+                        <div class="overclock-desc">+0.5m AoE Radius. +10 Max Ammo.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="pgl-1">
+                            <label for="pgl-1" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item balanced">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Pack Rat</span>
+                            <span class="overclock-type balanced">Balanced</span>
+                        </div>
+                        <div class="overclock-desc">+3 Max Ammo. -15 Area Damage.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="pgl-2">
+                            <label for="pgl-2" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item balanced">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Compact Rounds</span>
+                            <span class="overclock-type balanced">Balanced</span>
+                        </div>
+                        <div class="overclock-desc">+5 Max Ammo. -0.5m AoE Radius.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="pgl-3">
+                            <label for="pgl-3" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item unstable">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Fat Boy</span>
+                            <span class="overclock-type unstable">Unstable</span>
+                        </div>
+                        <div class="overclock-desc">x4 Area Damage. +0.5m AoE Radius. x0.3 Max Ammo. x0.5 Projectile Velocity. Radiation field.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="pgl-4">
+                            <label for="pgl-4" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item unstable">
+                        <div class="overclock-header">
+                            <span class="overclock-name">RJ250 Compound</span>
+                            <span class="overclock-type unstable">Unstable</span>
+                        </div>
+                        <div class="overclock-desc">Special force blast that can propel the Engineer. -25 Area Damage.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="pgl-5">
+                            <label for="pgl-5" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item unstable">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Hyper Propellant</span>
+                            <span class="overclock-type unstable">Unstable</span>
+                        </div>
+                        <div class="overclock-desc">+385 Direct Damage. x0.2 AoE Radius. x3 Projectile Velocity.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="pgl-6">
+                            <label for="pgl-6" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Breach Cutter -->
+            <section class="weapon-section">
+                <h2>Breach Cutter</h2>
+                <div class="weapon-progress breach-progress">0/7 (0%)</div>
+                
+                <div class="overclock-container breach-oc">
+                    <div class="overclock-item clean">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Light-Weight Cases</span>
+                            <span class="overclock-type clean">Clean</span>
+                        </div>
+                        <div class="overclock-desc">+4 Max Ammo. +0.5 Reload Speed.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="breach-1">
+                            <label for="breach-1" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item clean">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Roll Control</span>
+                            <span class="overclock-type clean">Clean</span>
+                        </div>
+                        <div class="overclock-desc">Special: Hold reload to rotate beam 90°. +1 Line Width.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="breach-2">
+                            <label for="breach-2" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item balanced">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Stronger Plasma Current</span>
+                            <span class="overclock-type balanced">Balanced</span>
+                        </div>
+                        <div class="overclock-desc">+20 Damage. -4 Max Ammo.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="breach-3">
+                            <label for="breach-3" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item balanced">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Return to Sender</span>
+                            <span class="overclock-type balanced">Balanced</span>
+                        </div>
+                        <div class="overclock-desc">Special: Line returns after reaching max distance. -2 Magazine Size.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="breach-4">
+                            <label for="breach-4" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item balanced">
+                        <div class="overclock-header">
+                            <span class="overclock-name">High Voltage Crossover</span>
+                            <span class="overclock-type balanced">Balanced</span>
+                        </div>
+                        <div class="overclock-desc">Electric field damages enemies between beams. -4 Damage.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="breach-5">
+                            <label for="breach-5" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item unstable">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Spinning Death</span>
+                            <span class="overclock-type unstable">Unstable</span>
+                        </div>
+                        <div class="overclock-desc">Line spins in place doing persistent damage. x0.5 Projectile Velocity. x0.5 Max Ammo.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="breach-6">
+                            <label for="breach-6" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                    
+                    <div class="overclock-item unstable">
+                        <div class="overclock-header">
+                            <span class="overclock-name">Inferno</span>
+                            <span class="overclock-type unstable">Unstable</span>
+                        </div>
+                        <div class="overclock-desc">Sets enemies on fire. x0.5 Damage. +1m Plasma Expansion.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="breach-7">
+                            <label for="breach-7" class="checkbox-label">Unlocked</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <h3>Contact Me</h3>
+            <p>
+                <a href="mailto:someone@example.com">Email</a> 
+                <a href="https://github.com/Stowek8616/CTI-110">Github</a>
+            </p>
+            <p>For Karl! Rock and Stone!</p>
+        </footer>
+    </div>
+</body>
+</html>
