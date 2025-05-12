@@ -6,18 +6,21 @@
     <title>Engineer Overclocks - Deep Rock Galactic</title>
     <style>
         :root {
-            --drg-yellow: #FFD700;
-            --drg-dark: #2A2A2A;
-            --drg-gray: #3D3D3D;
+            --accentColor: #000000;
+            --backgroundColor: #ffffff;
+            --drg-gray: #fffbfb;
             --drg-light: #F5F5F5;
             --engineer-color: #cc0000;
+            --scout-color: #0036cc;
+            --driller-color: #ffd900;
+            --gunner-color: #008b00;
         }
         
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: var(--drg-dark);
+            background-color: var(--backgroundColor);
             color: var(--drg-light);
             line-height: 1.5;
         }
@@ -41,7 +44,7 @@
         }
         
         .subtitle {
-            color: var(--drg-yellow);
+            color: var(--accentColor);
             margin-top: 5px;
         }
         
@@ -67,31 +70,31 @@
         }
         
         nav li:nth-child(1) a {
-            background-color: var(--drg-yellow);
-            color: var(--drg-dark);
+            background-color: var(--accentColor);
+            color: var(--backgroundColor);
         }
         
         nav li:nth-child(2) a {
             background-color: var(--engineer-color);
-            border: 2px solid var(--drg-yellow);
+            border: 2px solid var(--accentColor);
         }
         
         nav li:nth-child(3) a {
-            background-color: #008800;
+            background-color: var(--gunner-color);
         }
         
         nav li:nth-child(4) a {
-            background-color: #884400;
+            background-color: var(--driller-color);
         }
         
         nav li:nth-child(5) a {
-            background-color: #00008B;
+            background-color:var(--scout-color);
         }
         
         h2 {
-            color: var(--drg-yellow);
+            color: var(--accentColor);
             margin-top: 30px;
-            border-bottom: 1px solid var(--drg-yellow);
+            border-bottom: 1px solid var(--accentColor);
             padding-bottom: 10px;
         }
         
@@ -103,7 +106,7 @@
         .checklist li {
             padding: 10px;
             margin-bottom: 10px;
-            background-color: rgba(0, 0, 0, 0.2);
+            background-color: rgba(0, 0, 0, 0.5);
             border-radius: 4px;
             display: flex;
             align-items: center;
@@ -147,7 +150,7 @@
         }
         
         footer a {
-            color: var(--drg-yellow);
+            color: var(--accentColor);
             margin: 0 10px;
         }
         
@@ -168,13 +171,13 @@
 <body>
     <div class="container">
         <header>
+            <h1>Overclock Checklist</h1>
             <h1>Engineer</h1>
-            <div class="subtitle">Overclock Checklist</div>
         </header>
         
         <nav>
             <ul>
-                <li><a href="Home.html">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="Engineer.html">Engineer</a></li>
                 <li><a href="Gunner.html">Gunner</a></li>
                 <li><a href="Driller.html">Driller</a></li>
@@ -204,7 +207,7 @@
                 <li>
                     <input type="checkbox" id="warthog-4">
                     <span class="overclock-name">Cycle Overload</span>
-                    <span class="overclock-type balanced">Balanced</span>
+                    <span class="overclock-type unstable">Unstable</span>
                 </li>
                 <li>
                     <input type="checkbox" id="warthog-5">
@@ -213,12 +216,7 @@
                 </li>
                 <li>
                     <input type="checkbox" id="warthog-6">
-                    <span class="overclock-name">Turret Whip</span>
-                    <span class="overclock-type balanced">Balanced</span>
-                </li>
-                <li>
-                    <input type="checkbox" id="warthog-7">
-                    <span class="overclock-name">Turret EM Discharge</span>
+                    <span class="overclock-name">Pump Action</span>
                     <span class="overclock-type unstable">Unstable</span>
                 </li>
             </ul>
@@ -234,7 +232,7 @@
                 <li>
                     <input type="checkbox" id="stubby-2">
                     <span class="overclock-name">Well Oiled Machine</span>
-                    <span class="overclock-type balanced">Balanced</span>
+                    <span class="overclock-type clean">Clean</span>
                 </li>
                 <li>
                     <input type="checkbox" id="stubby-3">
@@ -248,7 +246,17 @@
                 </li>
                 <li>
                     <input type="checkbox" id="stubby-5">
-                    <span class="overclock-name">Turret Arc</span>
+                    <span class="overclock-name">Hyperalloy Assembly</span>
+                    <span class="overclock-type balanced">Balanced</span>
+                </li>
+                <li>
+                    <input type="checkbox" id="stubby-6">
+                    <span class="overclock-name">Micro-Conductor Add-On</span>
+                    <span class="overclock-type unstable">Unstable</span>
+                </li>
+                <li>
+                    <input type="checkbox" id="stubby-7">
+                    <span class="overclock-name">Turret EN Discharge</span>
                     <span class="overclock-type unstable">Unstable</span>
                 </li>
             </ul>
@@ -274,11 +282,21 @@
                 <li>
                     <input type="checkbox" id="lok1-4">
                     <span class="overclock-name">Explosive Chemical Rounds</span>
-                    <span class="overclock-type unstable">Unstable</span>
+                    <span class="overclock-type balanced">Balanced</span>
                 </li>
                 <li>
                     <input type="checkbox" id="lok1-5">
+                    <span class="overclock-name">Neuro-Lasso</span>
+                    <span class="overclock-type balanced">Balanced</span>
+                </li>
+                <li>
+                    <input type="checkbox" id="lok1-6">
                     <span class="overclock-name">Executioner</span>
+                    <span class="overclock-type unstable">Unstable</span>
+                </li>
+                <li>
+                    <input type="checkbox" id="lok1-7">
+                    <span class="overclock-name">Smart Trigger OS</span>
                     <span class="overclock-type unstable">Unstable</span>
                 </li>
             </ul>
@@ -294,7 +312,7 @@
                 <li>
                     <input type="checkbox" id="pgl-2">
                     <span class="overclock-name">Pack Rat</span>
-                    <span class="overclock-type balanced">Balanced</span>
+                    <span class="overclock-type clean">Clean</span>
                 </li>
                 <li>
                     <input type="checkbox" id="pgl-3">
@@ -303,12 +321,12 @@
                 </li>
                 <li>
                     <input type="checkbox" id="pgl-4">
-                    <span class="overclock-name">Fat Boy</span>
-                    <span class="overclock-type unstable">Unstable</span>
-                </li>
+                    <span class="overclock-name">RJ250 Compound</span>
+                    <span class="overclock-type balanced">Balanced</span>
+                </li>               
                 <li>
                     <input type="checkbox" id="pgl-5">
-                    <span class="overclock-name">RJ250 Compound</span>
+                    <span class="overclock-name">Fat Boy</span>
                     <span class="overclock-type unstable">Unstable</span>
                 </li>
                 <li>
@@ -334,7 +352,7 @@
                 <li>
                     <input type="checkbox" id="breach-3">
                     <span class="overclock-name">Stronger Plasma Current</span>
-                    <span class="overclock-type balanced">Balanced</span>
+                    <span class="overclock-type clean">Clean</span>
                 </li>
                 <li>
                     <input type="checkbox" id="breach-4">
@@ -359,13 +377,85 @@
             </ul>
         </main>
 
+            <!-- Shard Diffractor -->
+            <h2>Shard Diffractor</h2>
+            <ul class="checklist">
+                <li>
+                    <input type="checkbox" id="shard-1">
+                    <span class="overclock-name">Efficiency Tweaks</span>
+                    <span class="overclock-type clean">Clean</span>
+                </li>
+                <li>
+                    <input type="checkbox" id="shard-2">
+                    <span class="overclock-name">Automated Beam Controller</span>
+                    <span class="overclock-type balanced">Balanced</span>
+                </li>
+                <li>
+                    <input type="checkbox" id="shard-3">
+                    <span class="overclock-name">Feedback Loop</span>
+                    <span class="overclock-type balanced">Balanced</span>
+                </li>
+                <li>
+                    <input type="checkbox" id="shard-4">
+                    <span class="overclock-name">Volatile Impact Reactor</span>
+                    <span class="overclock-type balanced">Balanced</span>
+                </li>
+                <li>
+                    <input type="checkbox" id="shard-5">
+                    <span class="overclock-name">SPlastcrete Catalyst</span>
+                    <span class="overclock-type unstable">Unstable</span>
+                </li>
+                <li>
+                    <input type="checkbox" id="shard-6">
+                    <span class="overclock-name">Overdrive Booster</span>
+                    <span class="overclock-type unstable">Unstable</span>
+                </li>
+            </ul>
+        </main>
+
         <footer>
             <p>
                 <a href="mailto:someone@example.com">Email</a> 
-                <a href="https://github.com/Stowek8616/CTI-110">Github</a>
+                <a href="https://github.com/Stowek8616/stowek8616.github.io">Github</a>
             </p>
             <p>Rock and Stone!</p>
         </footer>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            loadCheckboxStates();
+
+            checkboxes.forEach(function(checkbox) {
+                checkbox.addEventListener('change', function() {
+                    saveCheckboxStates();
+                });
+            });
+            
+            // Function to save checkbox states
+            function saveCheckboxStates() {
+                const checkboxStates = {};
+                
+                checkboxes.forEach(function(checkbox) {
+                    checkboxStates[checkbox.id] = checkbox.checked;
+                });
+
+                localStorage.setItem('scoutOverclockStates', JSON.stringify(checkboxStates));
+            }
+            // Function to load checkbox states
+            function loadCheckboxStates() {
+                const savedStates = localStorage.getItem('scoutOverclockStates');
+                if (savedStates) {
+                    const checkboxStates = JSON.parse(savedStates);
+                    
+                    checkboxes.forEach(function(checkbox) {
+                        if (checkboxStates.hasOwnProperty(checkbox.id)) {
+                            checkbox.checked = checkboxStates[checkbox.id];
+                        }
+                    });
+                }
+            }
+        });
+    </script>
 </body>
 </html>
