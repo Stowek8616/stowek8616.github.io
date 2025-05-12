@@ -440,11 +440,11 @@
                     checkboxStates[checkbox.id] = checkbox.checked;
                 });
 
-                localStorage.setItem('scoutOverclockStates', JSON.stringify(checkboxStates));
+                localStorage.setItem('drillerOverclockstates', JSON.stringify(checkboxStates));
             }
             // Function to load checkbox states
             function loadCheckboxStates() {
-                const savedStates = localStorage.getItem('scoutOverclockStates');
+                const savedStates = localStorage.getItem('drillerOverclockstates');
                 if (savedStates) {
                     const checkboxStates = JSON.parse(savedStates);
                     

@@ -11,7 +11,7 @@
             --drg-gray: #fffbfb;
             --drg-light: #F5F5F5;
             --engineer-color: #cc0000;
-            --scout-color: #0036cc;
+            --gunner-color: #0036cc;
             --driller-color: #ffd900;
             --gunner-color: #008b00;
         }
@@ -88,7 +88,7 @@
         }
         
         nav li:nth-child(5) a {
-            background-color:var(--scout-color);
+            background-color:var(--gunner-color);
         }
         
         h2 {
@@ -181,7 +181,7 @@
                 <li><a href="Engineer.html">Engineer</a></li>
                 <li><a href="Gunner.html">Gunner</a></li>
                 <li><a href="Driller.html">Driller</a></li>
-                <li><a href="Scout.html">Scout</a></li>
+                <li><a href="gunner.html">gunner</a></li>
             </ul>
         </nav>
         
@@ -455,11 +455,11 @@
                     checkboxStates[checkbox.id] = checkbox.checked;
                 });
 
-                localStorage.setItem('scoutOverclockStates', JSON.stringify(checkboxStates));
+                localStorage.setItem('gunnerOverclockStates', JSON.stringify(checkboxStates));
             }
             // Function to load checkbox states
             function loadCheckboxStates() {
-                const savedStates = localStorage.getItem('scoutOverclockStates');
+                const savedStates = localStorage.getItem('gunnerOverclockStates');
                 if (savedStates) {
                     const checkboxStates = JSON.parse(savedStates);
                     
